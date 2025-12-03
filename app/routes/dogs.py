@@ -1,51 +1,39 @@
 from flask import Blueprint, request, jsonify
+from flask_login import current_user, login_required
 from ..extensions import db
-from ..models.owner import Owner
 from ..models.dog import Dog
 
 dogs_bp = Blueprint("dogs", __name__)
 
 @dogs_bp.post("/")
-def create_dog():
+@login_required
+def create_dog_api():
     data = request.get_json() or {}
 
-    owner_id = data.get("owner_id")
-    if not owner_id:
-        return {"error": "owner_id is required"}, 400
+    name = data.get("name")
+    age_years = data.get("age_years")
+    breed = data.get("breed")
+    size = data.get("size")
+    gender = data.get("gender")
+    bio = data.get("bio")
+    city = data.get("city") or current_user.city
+    pincode = data.get("pincode")
 
-    owner = Owner.query.get(owner_id)
-    if not owner:
-        return {"error": "owner not found"}, 404
-
-    required_fields = ["name", "age_years", "breed", "size", "gender"]
-    missing = [f for f in required_fields if data.get(f) is None]
-    if missing:
-        return {"error": f"Missing fields: {', '.join(missing)}"}, 400
+    if not (name and age_years is not None and breed and size and gender):
+        return {"error": "Missing required fields"}, 400
 
     dog = Dog(
-        owner_id=owner_id,
-        name=data["name"],
-        age_years=data["age_years"],
-        breed=data["breed"],
-        size=data["size"],
-        gender=data["gender"],
-        bio=data.get("bio"),
-        city=data.get("city", owner.city),
-        pincode=data.get("pincode"),
+        owner_id=current_user.id,
+        name=name,
+        age_years=age_years,
+        breed=breed,
+        size=size,
+        gender=gender,
+        bio=bio,
+        city=city,
+        pincode=pincode,
     )
-
     db.session.add(dog)
     db.session.commit()
 
     return dog.to_dict(), 201
-
-
-@dogs_bp.get("/")
-def list_dogs():
-    owner_id = request.args.get("owner_id", type=int)
-    query = Dog.query
-    if owner_id:
-        query = query.filter_by(owner_id=owner_id)
-
-    dogs = query.all()
-    return jsonify([d.to_dict() for d in dogs]), 200

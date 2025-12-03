@@ -2,43 +2,63 @@
 {% block content %}
 <h1>Welcome to PawMatch 🐶❤️</h1>
 
-<section class="grid">
-    <div class="card">
-        <h2>Owners</h2>
-        <a class="button" href="{{ url_for('main.new_owner') }}">+ Add Owner</a>
-        {% if owners %}
-            <ul class="list">
-                {% for owner in owners %}
-                    <li>
-                        <strong>{{ owner.name }}</strong> ({{ owner.email }}) – {{ owner.city or "No city" }}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No owners yet. Create one!</p>
-        {% endif %}
-    </div>
+{% if is_logged_in %}
+    <section class="grid">
+        <div class="card">
+            <h2>Your Dogs</h2>
+            <a class="button" href="{{ url_for('main.new_dog') }}">+ Add Dog</a>
+            {% if my_dogs %}
+                <ul class="list">
+                    {% for dog in my_dogs %}
+                        <li>
+                            <strong>{{ dog.name }}</strong>
+                            ({{ dog.breed }}, {{ dog.size }}, {{ dog.gender }})
+                            – {{ dog.city or "No city" }}
+                            <a class="link-small"
+                               href="{{ url_for('main.dog_recommendations', dog_id=dog.id) }}">
+                                View matches
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You haven't added any dogs yet. Create your first dog profile!</p>
+            {% endif %}
+        </div>
 
+        <div class="card">
+            <h2>Other Dogs on PawMatch</h2>
+            {% if other_dogs %}
+                <ul class="list">
+                    {% for dog in other_dogs %}
+                        <li>
+                            <strong>{{ dog.name }}</strong>
+                            ({{ dog.breed }}, {{ dog.size }}, {{ dog.gender }})
+                            – {{ dog.city or "No city" }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No other dogs yet. Invite your friends!</p>
+            {% endif %}
+        </div>
+    </section>
+{% else %}
     <div class="card">
-        <h2>Dogs</h2>
-        <a class="button" href="{{ url_for('main.new_dog') }}">+ Add Dog</a>
-        {% if dogs %}
+        <h2>Browse dogs</h2>
+        {% if all_dogs %}
             <ul class="list">
-                {% for dog in dogs %}
+                {% for dog in all_dogs %}
                     <li>
                         <strong>{{ dog.name }}</strong>
                         ({{ dog.breed }}, {{ dog.size }}, {{ dog.gender }})
                         – {{ dog.city or "No city" }}
-                        <a class="link-small"
-                           href="{{ url_for('main.dog_recommendations', dog_id=dog.id) }}">
-                            View matches
-                        </a>
                     </li>
                 {% endfor %}
             </ul>
         {% else %}
-            <p>No dogs yet. Add your first paw friend!</p>
+            <p>No dogs yet. <a href="{{ url_for('auth.register') }}">Sign up</a> and add your first dog!</p>
         {% endif %}
     </div>
-</section>
+{% endif %}
 {% endblock %}

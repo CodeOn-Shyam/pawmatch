@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Create Owner</h1>
+<h1>Create your PawMatch account 🐾</h1>
 
 <form method="post" class="form">
     <label>
@@ -18,6 +18,16 @@
         <input type="text" name="city">
     </label>
 
-    <button type="submit" class="button">Create Owner</button>
+    <label>
+        Password*
+        <input type="password" name="password" required>
+    </label>
+
+    <button type="submit" class="button">Sign up</button>
 </form>
+
+<p style="margin-top: 0.75rem; font-size: 0.9rem;">
+    Already have an account?
+    <a href="{{ url_for('auth.login') }}">Log in</a>
+</p>
 {% endblock %}
