@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Matches for {{ dog.name }} in {{ dog.city or "your city" }}</h1>
+
+{% if candidates %}
+    <ul class="list">
+        {% for c in candidates %}
+            <li>
+                <strong>{{ c.name }}</strong>
+                ({{ c.breed }}, {{ c.size }}, {{ c.gender }})
+                – {{ c.city or "No city" }}
+                {% if c.bio %}
+                    <p class="bio">{{ c.bio }}</p>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No other dogs found in this city yet. Try adding more!</p>
+{% endif %}
+
+<a href="{{ url_for('main.home') }}" class="button-secondary">Back to home</a>
+{% endblock %}

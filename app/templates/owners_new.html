@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Create Owner</h1>
+
+<form method="post" class="form">
+    <label>
+        Name*
+        <input type="text" name="name" required>
+    </label>
+
+    <label>
+        Email*
+        <input type="email" name="email" required>
+    </label>
+
+    <label>
+        City
+        <input type="text" name="city">
+    </label>
+
+    <button type="submit" class="button">Create Owner</button>
+</form>
+{% endblock %}

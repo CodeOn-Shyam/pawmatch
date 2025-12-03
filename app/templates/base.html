@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PawMatch 🐾</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="{{ url_for('main.home') }}" class="brand">PawMatch 🐾</a>
+    </div>
+    <div class="nav-right">
+        <a href="{{ url_for('main.new_owner') }}">New Owner</a>
+        <a href="{{ url_for('main.new_dog') }}">New Dog</a>
+    </div>
+</nav>
+
+<main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+    <p>Made with ❤️ for dogs and backend interviews.</p>
+</footer>
+</body>
+</html>
