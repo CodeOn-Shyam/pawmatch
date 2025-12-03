@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Log in to PawMatch 🐶</h1>
+
+<form method="post" class="form">
+    <label>
+        Email
+        <input type="email" name="email" required>
+    </label>
+
+    <label>
+        Password
+        <input type="password" name="password" required>
+    </label>
+
+    <button type="submit" class="button">Log in</button>
+</form>
+
+<p style="margin-top: 0.75rem; font-size: 0.9rem;">
+    New here?
+    <a href="{{ url_for('auth.register') }}">Create an account</a>
+</p>
+{% endblock %}

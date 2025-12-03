@@ -2,19 +2,11 @@
 {% block content %}
 <h1>Create Dog Profile</h1>
 
-{% if not owners %}
-    <p>You need an owner first. <a href="{{ url_for('main.new_owner') }}">Create one here.</a></p>
-{% else %}
 <form method="post" class="form">
-    <label>
-        Owner*
-        <select name="owner_id" required>
-            <option value="">Select owner</option>
-            {% for owner in owners %}
-                <option value="{{ owner.id }}">{{ owner.name }} ({{ owner.email }})</option>
-            {% endfor %}
-        </select>
-    </label>
+    <p style="font-size: 0.9rem; opacity: 0.8;">
+        Logged in as <strong>{{ current_user.name }}</strong> ({{ current_user.email }}).
+        This dog will be linked to your account.
+    </p>
 
     <label>
         Name*
@@ -52,7 +44,7 @@
 
     <label>
         City
-        <input type="text" name="city">
+        <input type="text" name="city" placeholder="Defaults to your city if left empty">
     </label>
 
     <label>
@@ -62,10 +54,9 @@
 
     <label>
         Bio
-        <textarea name="bio" rows="3" placeholder="Describe your dog..."></textarea>
+        <textarea name="bio" rows="3" placeholder="Describe your dog... playful, friendly, etc."></textarea>
     </label>
 
     <button type="submit" class="button">Create Dog</button>
 </form>
-{% endif %}
 {% endblock %}
