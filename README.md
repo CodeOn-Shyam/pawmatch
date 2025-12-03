@@ -101,9 +101,16 @@ Contributions are welcome! Whether you want to fix bugs, add new features, impro
 - Add REST API endpoints (so external clients / mobile apps can use the backend)  
 - Dockerization and deployment configuration  
 
-## License & Code of Conduct
+## License & Community Guidelines
 
-The project is currently unlicensed. If you plan to accept contributions, it’s recommended to add a license (e.g., MIT, Apache 2.0) and a `CODE_OF_CONDUCT.md` / `CONTRIBUTING.md` to clarify guidelines.
+PawMatch is licensed under the MIT License, enabling open collaboration and reuse.
 
----
+The project includes established guidelines for contributions and responsible participation. Please review the following documents before submitting changes or opening discussions:
+
+- LICENSE
+- CODE_OF_CONDUCT.md
+- CONTRIBUTING.md
+
+We look forward to contributions from the community and welcome new ideas, improvements, and feature suggestions.
+
 
