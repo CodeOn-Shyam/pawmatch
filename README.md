@@ -27,7 +27,23 @@ PawMatch is a web application built with Flask that allows registered users to c
 - **ORM:** SQLAlchemy  
 - **Authentication:** Flask-Login  
 - **Frontend:** Jinja2 templates, HTML, CSS  
-- **Optional / future:** MongoDB (for logs / analytics), AI models / APIs for bio generation  
+- **Optional / future:** MongoDB (for logs / analytics), AI models / APIs for bio generation
+
+## Deployment
+
+PawMatch is deployed on Render as a Python web service.
+
+- Platform: Render
+- Deploy method: Build from GitHub repository
+- Start command: gunicorn run:app
+- Auto deploy: Enabled on push to main branch
+
+Any push to the main branch triggers an automatic redeploy.
+
+## Live Demo
+
+Production URL: https://pawmatch-qltm.onrender.com/
+
 
 ## Project Structure
 
